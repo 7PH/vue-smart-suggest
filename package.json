@@ -1,0 +1,34 @@
+{
+  "name": "vue-smart-suggest",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --config vite-docs.config.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/textarea-caret": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitest/coverage-c8": "^0.23.2",
+    "@vitest/ui": "^0.23.2",
+    "@vue/test-utils": "^2.0.0-rc.33",
+    "eslint": "^8.23.1",
+    "eslint-plugin-vue": "^9.5.1",
+    "typescript": "^4.8.3",
+    "vite": "^3.1.1",
+    "vitest": "^0.23.2",
+    "vue": "^3.2.31",
+    "vue-tsc": "^0.40.13"
+  },
+  "peerDependencies": {
+    "vue": ">= 3.0.0"
+  },
+  "dependencies": {
+    "textarea-caret": "^3.1.0"
+  }
+}
