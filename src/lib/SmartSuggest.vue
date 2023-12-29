@@ -8,7 +8,7 @@ const props = defineProps<{
     triggers: Trigger[];
 }>();
 
-const { setTextArea, active, items, dropdownPosition, selectedIndex, activeTrigger } = useSmartSuggest(props.triggers);
+const { setTextArea, select, active, items, dropdownPosition, selectedIndex, activeTrigger } = useSmartSuggest(props.triggers);
 
 const container = ref<HTMLDivElement>();
 function updateTextArea() {
@@ -46,6 +46,7 @@ onUnmounted(updateTextArea);
             :items="items"
             :selected-index="selectedIndex"
             :trigger="(activeTrigger as ActiveTrigger).trigger"
+            :select="select"
         >
             <div
                 class="smart-suggest-dropdown"
@@ -71,10 +72,12 @@ onUnmounted(updateTextArea);
                             :item="item"
                             :selected="index === selectedIndex"
                             :trigger="(activeTrigger as ActiveTrigger).trigger"
+                            :select="select"
                         >
                             <SmartSuggestItem
                                 :item="item"
                                 :selected="index === selectedIndex"
+                                @select="select(item)"
                             />
                         </slot>
                     </template>
@@ -101,7 +104,7 @@ onUnmounted(updateTextArea);
 .smart-suggest-dropdown.smart-suggest-dropdown-top {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .smart-suggest-items {
@@ -111,10 +114,6 @@ onUnmounted(updateTextArea);
     overflow: auto;
     z-index: 100;
     text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    border: 1px solid #ccc;
 }
 
 .smart-suggest-no-result {

@@ -158,24 +158,32 @@ export function useSmartSuggest(triggers: Trigger[]) {
             if (!selected) {
                 return;
             }
-            if (!activeTrigger.value) {
-                return;
-            }
-            const newValue =
-                input.value.substring(0, activeTrigger.value.index) +
-                selected.value +
-                (activeTrigger.value.trigger.insertSpaceAfter !== false
-                    ? ' '
-                    : '') +
-                input.value.substring(getInputSelectionStart(input));
-            setInputValue(input, newValue);
-            active.value = false;
+            select(selected);
             return;
         }
     }
 
+    function select(item: Item) {
+        if (!input) {
+            return;
+        }
+        if (!activeTrigger.value) {
+            return;
+        }
+        const newValue =
+            input.value.substring(0, activeTrigger.value.index) +
+            item.value +
+            (activeTrigger.value.trigger.insertSpaceAfter !== false
+                ? ' '
+                : '') +
+            input.value.substring(getInputSelectionStart(input));
+        setInputValue(input, newValue);
+        active.value = false;
+    }
+
     return {
         setTextArea,
+        select,
         active,
         search,
         items,

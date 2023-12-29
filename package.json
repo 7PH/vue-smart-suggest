@@ -1,6 +1,6 @@
 {
   "name": "vue-smart-suggest",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "",
   "keywords": [],
   "author": "7PH <b.raymond@protonmail.com>",
@@ -12,7 +12,8 @@
     ".": {
       "import": "./lib/vue-smart-suggest.es.js",
       "require": "./lib/vue-smart-suggest.umd.js"
-    }
+    },
+    "./lib/style.css": "./lib/style.css"
   },
   "scripts": {
     "dev": "vite --config vite-docs.config.ts",

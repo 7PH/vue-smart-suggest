@@ -32,17 +32,11 @@ const triggers: Trigger[] = [
     {
         char: '@',
         insertSpaceAfter: false,
-        items: [
-            {
-                value: '@username',
-                searchMatch: '@username',
-            },
-            {
-                value: '@username2',
-                searchMatch: '@username2',
-            },
-        ]
-    }
+        items: Array.from({length: 100}).map((_, i) => ({
+            value: `@user${i}`,
+            searchMatch: `@user${i}`,
+        })),
+    },
 ];
 </script>
 
