@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
-import { AcceptedInputType, Trigger } from './types';
+import { AcceptedInputType, ActiveTrigger, Trigger } from './types';
 import { useSmartSuggest } from './useSmartSuggest';
 import SmartSuggestItem from './SmartSuggestItem.vue';
 
@@ -8,7 +8,7 @@ const props = defineProps<{
     triggers: Trigger[];
 }>();
 
-const { setTextArea, active, suggestions, dropdownPosition, selectedIndex } = useSmartSuggest(props.triggers);
+const { setTextArea, active, items, dropdownPosition, selectedIndex, activeTrigger } = useSmartSuggest(props.triggers);
 
 const container = ref<HTMLDivElement>();
 function updateTextArea() {
@@ -43,10 +43,15 @@ onUnmounted(updateTextArea);
             v-if="active"
             name="dropdown"
             :position="dropdownPosition"
-            :suggestions="suggestions"
+            :items="items"
             :selected-index="selectedIndex"
+            :trigger="(activeTrigger as ActiveTrigger).trigger"
         >
-            <div 
+            <div
+                class="smart-suggest-dropdown"
+                :class="{
+                    'smart-suggest-dropdown-top': dropdownPosition.toTop,
+                }"
                 style="position: absolute"
                 :style="{
                     top: dropdownPosition.top + 'px',
@@ -56,30 +61,63 @@ onUnmounted(updateTextArea);
                 }"
                 v-bind="{ ...$attrs, class: undefined }"
             >
-                <template
-                    v-for="suggestion, index in suggestions"
-                    :key="suggestion.value"
-                >
-                    <slot
-                        name="item"
-                        :suggestion="suggestion"
-                        :selected="index === selectedIndex"
+                <div class="smart-suggest-items">
+                    <template
+                        v-for="item, index in items"
+                        :key="item.value"
                     >
-                        <SmartSuggestItem
-                            :suggestion="suggestion"
+                        <slot
+                            name="item"
+                            :item="item"
                             :selected="index === selectedIndex"
-                        />
-                    </slot>
-                </template>
+                            :trigger="(activeTrigger as ActiveTrigger).trigger"
+                        >
+                            <SmartSuggestItem
+                                :item="item"
+                                :selected="index === selectedIndex"
+                            />
+                        </slot>
+                    </template>
 
-                <template v-if="suggestions.length === 0">
-                    <slot name="no-result">
-                        <div style="padding: 5px;">
-                            No result
-                        </div>
-                    </slot>
-                </template>
+                    <template v-if="items.length === 0">
+                        <slot name="no-result">
+                            <div class="smart-suggest-no-result">
+                                No result
+                            </div>
+                        </slot>
+                    </template>
+                </div>
             </div>
         </slot>
     </div>
 </template>
+
+<style scoped>
+.smart-suggest-dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.smart-suggest-dropdown.smart-suggest-dropdown-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.smart-suggest-items {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: auto;
+    z-index: 100;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border: 1px solid #ccc;
+}
+
+.smart-suggest-no-result {
+    padding: 5px;
+}
+</style>

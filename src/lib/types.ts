@@ -11,11 +11,11 @@ export type Trigger = {
 export type Item = {
     searchMatch: string;
     value: string;
-    triggers?: string[];
-    [key: string]: unknown;
+    [key: string]: any;
 };
 
 export type DropdownPosition = {
+    toTop: boolean;
     top: number;
     left: number;
     width: number;

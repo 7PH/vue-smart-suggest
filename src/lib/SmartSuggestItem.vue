@@ -2,19 +2,30 @@
 import { Item } from './types';
 
 defineProps<{
-    suggestion: Item;
+    item: Item;
     selected: boolean;
 }>();
 </script>
 
 <template>
     <div
-        style="padding: 5px;"
-        :style="{
-            backgroundColor: selected ? 'blue' : 'transparent',
-            color: selected ? 'white' : 'black',
+        class="smart-suggest-item"
+        :class="{
+            'smart-suggest-item-selected': selected,
         }"
     >
-        {{ suggestion.value }}
+        {{ item.value }}
     </div>
 </template>
+
+<style scoped>
+.smart-suggest-item {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.smart-suggest-item-selected {
+    background-color: blue;
+    color: white;
+}
+</style>
