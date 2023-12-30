@@ -19,12 +19,16 @@ export function setInputValue(input: AcceptedInputType, value: string) {
 export function searchItems(items: Item[], search: string): Item[] {
     return items
         .filter((item) =>
-            item.searchMatch.toLowerCase().includes(search.toLowerCase())
+            (item.searchMatch ?? item.value)
+                .toLowerCase()
+                .includes(search.toLowerCase())
         )
         .map((item) => ({
             item,
             score: [
-                item.searchMatch.toLowerCase().indexOf(search.toLowerCase()),
+                (item.searchMatch ?? item.value)
+                    .toLowerCase()
+                    .indexOf(search.toLowerCase()),
                 item.value.length,
             ],
         }))

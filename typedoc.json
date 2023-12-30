@@ -1,0 +1,10 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": ["src/lib/index.ts"],
+    "out": "docs/api-docs",
+    "exclude": ["**/SmartSuggestItem*"],
+    "hideGenerator": true,
+    "name": "Vue Smart Suggest",
+    "tsconfig": "./tsconfig.json",
+    "sort": ["source-order"]
+}

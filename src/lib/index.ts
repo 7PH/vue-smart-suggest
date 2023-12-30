@@ -1,8 +1,11 @@
-import SmartSuggest from './SmartSuggest.vue';
-import SmartSuggestItem from './SmartSuggestItem.vue';
-import { useSmartSuggest } from './useSmartSuggest';
-import { AcceptedInputType, DropdownPosition, Item, Trigger } from './types';
+export { useSmartSuggest } from './useSmartSuggest';
+export { default as SmartSuggest } from './SmartSuggest.vue';
+export { default as SmartSuggestItem } from './SmartSuggestItem.vue';
 
-export type { AcceptedInputType, DropdownPosition, Item, Trigger };
-export { SmartSuggest, SmartSuggestItem, useSmartSuggest };
-export default SmartSuggest;
+export type {
+    AcceptedInputType,
+    DropdownPosition,
+    Item,
+    ActiveTrigger,
+    Trigger,
+} from './types';

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-gray-200 overflow-y-auto;
+    height: 100vh;
+    color: black;
+}

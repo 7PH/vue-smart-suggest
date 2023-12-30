@@ -1,6 +1,6 @@
 {
   "name": "vue-smart-suggest",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "description": "",
   "keywords": [],
   "author": "7PH <b.raymond@protonmail.com>",
@@ -17,15 +17,19 @@
   },
   "scripts": {
     "dev": "vite --config vite-docs.config.ts",
-    "build": "vite --config vite-docs.config.ts build && vite build && npm run coverage && vue-tsc --emitDeclarationOnly --outDir lib/types",
+    "build": "rm -r docs && vite --config vite-docs.config.ts build && npx typedoc && vite build && npm run coverage && vue-tsc --emitDeclarationOnly --outDir lib/types",
     "test": "vitest --run",
-    "coverage": "vitest --run --coverage",
+    "coverage": "vitest --run --coverage && rm -r docs/coverage/tmp",
     "size": "size-limit"
   },
   "files": [
     "/lib"
   ],
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@size-limit/preset-small-lib": "^11.0.1",
     "@types/textarea-caret": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
@@ -33,15 +37,20 @@
     "@vitest/coverage-c8": "^0.23.2",
     "@vitest/ui": "^0.23.2",
     "@vue/test-utils": "^2.0.0-rc.33",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.23.1",
     "eslint-plugin-vue": "^9.5.1",
+    "highlight.js": "^11.9.0",
     "jsdom": "^23.0.1",
+    "postcss": "^8.4.32",
     "size-limit": "^11.0.1",
+    "tailwindcss": "^3.4.0",
     "typedoc": "^0.25.4",
     "typescript": "^4.8.3",
     "vite": "^3.1.1",
     "vitest": "^0.23.2",
     "vue": "^3.2.31",
+    "vue-router": "^4.2.5",
     "vue-tsc": "^0.40.13"
   },
   "peerDependencies": {

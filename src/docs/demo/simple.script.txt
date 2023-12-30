@@ -1,0 +1,13 @@
+<script setup lang="ts">
+import SmartSuggest, { Trigger } from 'vue-smart-suggest';
+
+const triggers: Trigger[] = [{
+    char: '@',
+    items: [
+        { value: 'John Doe' },
+        { value: 'Jane Doe' },
+        { value: 'John Smith' },
+        { value: 'Jane Smith' },
+    ]
+}];
+</script>

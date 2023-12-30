@@ -4,12 +4,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [vue()],
-    resolve: {
-        alias: {
-            '@/': new URL('./src/', import.meta.url).pathname,
-        },
-    },
     build: {
+        emptyOutDir: false,
         outDir: path.resolve(__dirname, 'docs'),
         target: 'es6',
     },

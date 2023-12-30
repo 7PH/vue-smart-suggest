@@ -7,21 +7,17 @@ export const DEFAULT_TRIGGER: Trigger[] = [
         items: [
             {
                 value: 'user1',
-                searchMatch: 'user1',
                 image: 'http://some-image.localhost/user1.png',
             },
             {
                 value: 'user2',
-                searchMatch: 'user2',
                 image: 'http://some-image.localhost/user2.png',
             },
             {
                 value: 'guest10',
-                searchMatch: 'guest10',
             },
             {
                 value: '*guest0',
-                searchMatch: '*guest0',
             },
         ],
     },
