@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import SmartSuggest from '../lib/SmartSuggest.vue';
 import { Trigger } from '../lib/types';
-import SmartSuggestItem from '../lib/SmartSuggestItem.vue';
 
 const value = ref('placeholder value');
 
@@ -15,7 +14,7 @@ const triggers: Trigger[] = [
             {
                 value: ':hap2:',
                 searchMatch: ':hap2:',
-                image: '',
+                image: 'https://fastly.picsum.photos/id/736/536/354.jpg?hmac=dhVCNl8HtUP0ldeqqI3TqopgIssRJK82foBuDgZH6Ko',
             },
             {
                 value: ':ah:',
@@ -25,7 +24,7 @@ const triggers: Trigger[] = [
             {
                 value: ':hap:',
                 searchMatch: ':hap:',
-                image: '',
+                image: 'https://skych.at/uploads/stickers/_hap_.gif?1615069121957',
             },
         ]
     },

@@ -15,7 +15,7 @@ export function getDropdownPosition(
     // Is there place for the dropdown below the caret?
     const inputRect = input.getBoundingClientRect();
     if (
-        inputRect.top + top + dropdownHeight + 2 * DROPDOWN_MARGIN <
+        inputRect.top + top + dropdownHeight + 2 * DROPDOWN_MARGIN <=
         window.innerHeight
     ) {
         return {

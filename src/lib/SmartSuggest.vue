@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, onUpdated, ref } from 'vue';
-import { AcceptedInputType, ActiveTrigger, Trigger } from './types';
+import { onMounted, onUnmounted, onUpdated, ref, watch } from 'vue';
+import { AcceptedInputType, ActiveTrigger, Item, Trigger } from './types';
 import { useSmartSuggest } from './useSmartSuggest';
 import SmartSuggestItem from './SmartSuggestItem.vue';
 
@@ -8,26 +8,38 @@ const props = defineProps<{
     triggers: Trigger[];
 }>();
 
-const { setTextArea, select, active, items, dropdownPosition, selectedIndex, activeTrigger } = useSmartSuggest(props.triggers);
+const { setInputElement, setTriggers, select, active, items, dropdownPosition, activeIndex, activeTrigger } = useSmartSuggest(props.triggers);
+
+watch(() => props.triggers, () => {
+    setTriggers(props.triggers);
+}, { immediate: true });
 
 const container = ref<HTMLDivElement>();
 function updateTextArea() {
-    if (! container.value) {
-        setTextArea(undefined);
-        return;
-    }
-    
-    const firstChild = container.value.firstElementChild;
-    if (! firstChild) {
-        setTextArea(undefined);
+    if (! container.value || ! container.value.firstElementChild) {
+        setInputElement(undefined);
         return;
     }
 
-    setTextArea(firstChild as AcceptedInputType);
+    setInputElement(container.value.firstElementChild as AcceptedInputType);
 }
 onMounted(updateTextArea);
 onUpdated(updateTextArea);
 onUnmounted(updateTextArea);
+
+const emits = defineEmits<{
+    (e: 'select', item: Item): void;
+    (e: 'open'): void;
+    (e: 'close'): void;
+}>();
+
+watch(active, (active) => {
+    if (active) {
+        emits('open');
+    } else {
+        emits('close');
+    }
+});
 </script>
 
 <template>
@@ -44,7 +56,7 @@ onUnmounted(updateTextArea);
             name="dropdown"
             :position="dropdownPosition"
             :items="items"
-            :selected-index="selectedIndex"
+            :active-index="activeIndex"
             :trigger="(activeTrigger as ActiveTrigger).trigger"
             :select="select"
         >
@@ -70,13 +82,13 @@ onUnmounted(updateTextArea);
                         <slot
                             name="item"
                             :item="item"
-                            :selected="index === selectedIndex"
+                            :active="index === activeIndex"
                             :trigger="(activeTrigger as ActiveTrigger).trigger"
                             :select="select"
                         >
                             <SmartSuggestItem
                                 :item="item"
-                                :selected="index === selectedIndex"
+                                :active="index === activeIndex"
                                 @select="select(item)"
                             />
                         </slot>
@@ -99,7 +111,8 @@ onUnmounted(updateTextArea);
 .smart-suggest-dropdown {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
+    color: black;
 }
 .smart-suggest-dropdown.smart-suggest-dropdown-top {
     display: flex;

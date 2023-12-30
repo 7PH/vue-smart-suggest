@@ -4,12 +4,12 @@ import { Item } from './types';
 
 const props = defineProps<{
     item: Item;
-    selected: boolean;
+    active: boolean;
 }>();
 
 const container = ref();
-watch(() => props.selected, () => {
-    if (props.selected) {
+watch(() => props.active, () => {
+    if (props.active) {
         container.value.scrollIntoView({
             block: 'nearest',
         });
@@ -26,11 +26,22 @@ defineEmits<{
         ref="container"
         class="smart-suggest-item"
         :class="{
-            'smart-suggest-item-selected': selected,
+            'smart-suggest-item-active': active,
         }"
         @mousedown.prevent.stop="$emit('select', item)"
     >
-        {{ item.value }}
+        <span
+            v-if="item.image"
+            class="smart-suggest-item-image-container"
+        >
+            <img
+                :src="item.image"
+                alt=""
+            >
+        </span>
+        <span>
+            {{ item.label ?? item.value }}
+        </span>
     </div>
 </template>
 
@@ -38,9 +49,25 @@ defineEmits<{
 .smart-suggest-item {
     padding: 0.5rem;
     cursor: pointer;
+    height: 1lh;
+
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
 }
 
-.smart-suggest-item-selected {
+.smart-suggest-item-image-container {
+    width: 1lh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.smart-suggest-item-image-container img {
+    max-width: 100%;
+    max-height: 100%;    
+}
+
+.smart-suggest-item-active {
     background-color: #eee;
 }
 .smart-suggest-item:hover {

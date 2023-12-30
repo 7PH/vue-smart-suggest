@@ -6,10 +6,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [vue()],
     test: {
-        globals: true, // Required for Web Animation API mock
         environment: 'jsdom',
         coverage: {
             reportsDirectory: 'docs/coverage',
+            reporter: ['text', 'html'],
         },
     },
     resolve: {

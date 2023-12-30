@@ -13,15 +13,18 @@ export function setInputValue(input: AcceptedInputType, value: string) {
     input.dispatchEvent(new Event('input'));
 }
 
+/**
+ * Search items by matching the search string with the item value.
+ */
 export function searchItems(items: Item[], search: string): Item[] {
     return items
         .filter((item) =>
-            item.value.toLowerCase().includes(search.toLowerCase())
+            item.searchMatch.toLowerCase().includes(search.toLowerCase())
         )
         .map((item) => ({
             item,
             score: [
-                item.value.toLowerCase().indexOf(search.toLowerCase()),
+                item.searchMatch.toLowerCase().indexOf(search.toLowerCase()),
                 item.value.length,
             ],
         }))
@@ -36,6 +39,9 @@ export function searchItems(items: Item[], search: string): Item[] {
         .map(({ item }) => item);
 }
 
+/**
+ * Get the current active trigger for a given input
+ */
 export function getActiveTrigger(
     input: AcceptedInputType,
     triggers: Trigger[],
