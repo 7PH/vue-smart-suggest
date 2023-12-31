@@ -121,14 +121,10 @@ export function useSmartSuggest(
             return;
         }
 
-        // Update dropdown position
+        // Update dropdown data
         dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT);
-
-        // If active trigger and non-empty search, show dropdown
-        if (items.value.length > 0) {
-            activeTrigger.value = newActiveTrigger;
-            active.value = true;
-        }
+        activeTrigger.value = newActiveTrigger;
+        active.value = true;
     }
 
     /**

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+      "outDir": "lib",
+      "target": "ESNext",
+      "declaration": true,
+      "useDefineForClassFields": true,
+      "module": "ESNext",
+      "moduleResolution": "Node",
+      "strict": true,
+      "jsx": "preserve",
+      "sourceMap": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "esModuleInterop": true,
+      "lib": ["ESNext", "DOM"],
+      "skipLibCheck": true
+  },
+}

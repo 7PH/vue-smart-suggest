@@ -1,10 +1,11 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": ["src/lib/index.ts"],
+    "entryPoints": ["lib/index.d.ts"],
     "out": "docs/api-docs",
     "exclude": ["**/SmartSuggestItem*"],
     "hideGenerator": true,
     "name": "Vue Smart Suggest",
-    "tsconfig": "./tsconfig.json",
-    "sort": ["source-order"]
+    "tsconfig": "tsconfig.typedoc.json",
+    "sort": ["source-order"],
+    "plugin": ["typedoc-plugin-vue"]
 }

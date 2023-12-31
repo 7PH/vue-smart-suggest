@@ -1,3 +1,16 @@
+<script lang="ts">
+/**
+ * Component responsible for handling the input and displaying the dropdown.
+ * Accepts a list of triggers which are used to determine when to open the dropdown.
+ * It should have a single child element which is the input element (@see AcceptedInputType for supported types).
+ * 
+ * Based on your need, you can customize the dropdown items (SmartSuggestItem) or the full dropdown (slot="dropdown").
+ * 
+ * When using showNoResult=true, you can also customize the no result message (slot="no-result").
+ */
+export default {};
+</script>
+
 <script setup lang="ts">
 import { onMounted, onUnmounted, onUpdated, ref, watch } from 'vue';
 import { AcceptedInputType, ActiveTrigger, Item, Trigger } from './types';
@@ -5,6 +18,9 @@ import { useSmartSuggest } from './useSmartSuggest';
 import SmartSuggestItem from './SmartSuggestItem.vue';
 
 const props = defineProps<{
+    /**
+     * (prop) Triggers to use for this SmartSuggest instance
+     */
     triggers: Trigger[];
 }>();
 
@@ -28,8 +44,19 @@ onUpdated(updateTextArea);
 onUnmounted(updateTextArea);
 
 const emits = defineEmits<{
+    /**
+     * (event) Emitted when an item is selected
+     */
     (e: 'select', item: Item): void;
+
+    /**
+     * (event) Emitted when the dropdown is opened or closed
+     */
     (e: 'open'): void;
+
+    /**
+     * (event) Emitted when the dropdown is opened or closed
+     */
     (e: 'close'): void;
 }>();
 
@@ -46,7 +73,7 @@ watch(active, (active) => {
     <div
         ref="container"
         class="smart-suggest"
-        :class="$attrs.class"
+        v-bind="$attrs"
         style="position: relative;"
     >
         <slot />
@@ -72,7 +99,6 @@ watch(active, (active) => {
                     width: dropdownPosition.width + 'px',
                     height: dropdownPosition.height + 'px',
                 }"
-                v-bind="{ ...$attrs, class: undefined }"
             >
                 <div class="smart-suggest-items">
                     <template

@@ -149,7 +149,14 @@ describe('should trigger dropdown and search', () => {
     });
 
     it('should reset search after last found trigger char', async () => {
-        const wrapper = mountSmartSuggest();
+        const wrapper = mountSmartSuggest({
+            triggers: [
+                {
+                    ...DEFAULT_TRIGGER[0],
+                    whitespaceBefore: false,
+                } as Trigger,
+            ],
+        });
 
         wrapper.find('textarea').setValue('hello world. @gu@us');
         await ui.expectDropdownItems(wrapper, ['user1', 'user2']);
@@ -277,7 +284,14 @@ describe('should trigger dropdown and search', () => {
     });
 
     it('should render no result', async () => {
-        const wrapper = mountSmartSuggest();
+        const wrapper = mountSmartSuggest({
+            triggers: [
+                {
+                    ...DEFAULT_TRIGGER[0],
+                    showNoResult: true,
+                } as Trigger,
+            ],
+        });
 
         wrapper.find('textarea').setValue('hello world. @test');
         await ui.expectDropdownVisibility(wrapper, true);

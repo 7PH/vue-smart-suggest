@@ -1,0 +1,6 @@
+<slot #item="{ item, active, trigger, select }">
+    item: {{ item as Item }}
+    active: {{ active as boolean }}
+    trigger: {{ trigger as ActiveTrigger }}
+    select: {{ select as (item: Item) => void }}
+</slot>

@@ -24,6 +24,8 @@ export const userTrigger: Trigger = {
 export const emojiTrigger: Trigger = {
     char: ':',
     whitespaceBefore: true,
+    showNoResult: true,
+    searchRegExp: /[a-zA-Z0-9-_)(]*/,
     items: [
         [':(', sticker0],
         [':doute:', sticker1],

@@ -1,6 +1,6 @@
 {
   "name": "vue-smart-suggest",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "keywords": [],
   "author": "7PH <b.raymond@protonmail.com>",
@@ -17,7 +17,8 @@
   },
   "scripts": {
     "dev": "vite --config vite-docs.config.ts",
-    "build": "rm -r docs && vite --config vite-docs.config.ts build && npx typedoc && vite build && npm run coverage && vue-tsc --emitDeclarationOnly --outDir lib/types",
+    "build": "vite build && npm run build:docs",
+    "build:docs": "rm -r docs && vite --config vite-docs.config.ts build && npm run coverage && npx typedoc",
     "test": "vitest --run",
     "coverage": "vitest --run --coverage && rm -r docs/coverage/tmp",
     "size": "size-limit"
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "@highlightjs/vue-plugin": "^2.1.0",
     "@size-limit/preset-small-lib": "^11.0.1",
@@ -46,12 +48,13 @@
     "size-limit": "^11.0.1",
     "tailwindcss": "^3.4.0",
     "typedoc": "^0.25.4",
+    "typedoc-plugin-vue": "^1.1.0",
     "typescript": "^4.8.3",
     "vite": "^3.1.1",
+    "vite-plugin-dts": "^3.7.0",
     "vitest": "^0.23.2",
     "vue": "^3.2.31",
-    "vue-router": "^4.2.5",
-    "vue-tsc": "^0.40.13"
+    "vue-router": "^4.2.5"
   },
   "peerDependencies": {
     "vue": ">= 3.0.0"

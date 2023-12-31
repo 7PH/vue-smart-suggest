@@ -1,0 +1,16 @@
+.smart-suggest {
+    /* Container for the textarea and the dropdown */ }
+.smart-suggest-dropdown {
+    /* Dropdown container */ }
+.smart-suggest-dropdown-top {
+    /* Dropdown container when above the cursor */ }
+.smart-suggest-items {
+    /* Dropdown items container */ }
+.smart-suggest-no-result {
+    /* Dropdown no result item */ }
+.smart-suggest-item {
+    /* Dropdown item */ }
+.smart-suggest-item-active {
+    /* Dropdown item when it is active */ }
+.smart-suggest-item-image-container {
+    /* Dropdown item image container */ }

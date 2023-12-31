@@ -1,0 +1,29 @@
+<SmartSuggest :triggers="triggers">
+    <textarea />
+
+    <slot #dropdown="{ position, items, activeIndex, trigger, select }">
+        <div
+            style="position: absolute"
+            :style="{
+                top: dropdownPosition.top + 'px',
+                left: dropdownPosition.left + 'px',
+                width: dropdownPosition.width + 'px',
+                height: dropdownPosition.height + 'px',
+            }"
+        >
+            <div class="smart-suggest-items">
+                <SmartSuggestItem
+                    v-for="item, index in items"
+                    :key="item.value"
+                    :item="item"
+                    :active="index === activeIndex"
+                    @select="select(item)"
+                />
+
+                <div v-if="items.length === 0">
+                    No result
+                </div>
+            </div>
+        </div>
+    </slot>
+</SmartSuggest>

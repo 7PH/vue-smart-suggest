@@ -6,7 +6,7 @@ import AppHeader from '../components/AppHeader.vue';
 </script>
 
 <template>
-    <div class="max-w-[600px] w-full mx-auto mb-8 mt-16 md:mt-8 px-4 pb-16">
+    <div class="max-w-[700px] w-full mx-auto mb-8 mt-16 md:mt-8 px-4 pb-16">
         <AppHeader />
     
         <!-- Introduction -->
@@ -15,7 +15,7 @@ import AppHeader from '../components/AppHeader.vue';
         </h1>
         <p class="mt-4">
             Vue Smart Suggest is a lightweight vue library offering dynamic, context-sensitive suggestions for your text areas.
-            It weights less than <b>3kb</b> minified and gzipped.<br>
+            It can be fully customized with custom components and weights less than <b>3kb</b> minified and gzipped.<br>
         </p>
 
         <!-- Demo -->

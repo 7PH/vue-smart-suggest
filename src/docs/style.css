@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-200 overflow-y-auto;
+    @apply bg-indigo-100;
+
     height: 100vh;
     color: black;
 }

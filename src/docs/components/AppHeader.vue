@@ -34,20 +34,23 @@ import { router } from '../router.js';
                 home
             </RouterLink>
             <RouterLink
-                to="/usage"
-                class="hidden"
+                to="/customize"
                 :class="{
-                    'underline': router.currentRoute.value.name !== 'usage',
+                    'underline': router.currentRoute.value.name !== 'customize',
                 }"
             >
-                usage
+                customize
             </RouterLink>
             <a
                 target="_blank"
                 href="./api-docs/"
                 class="underline"
             >
-                api
+                types
+                <fa
+                    icon="fa-external-link"
+                    class="ml-1 text-xs"
+                />
             </a>
             <a
                 target="_blank"
@@ -55,6 +58,10 @@ import { router } from '../router.js';
                 class="underline"
             >
                 coverage
+                <fa
+                    icon="fa-external-link"
+                    class="ml-1 text-xs"
+                />
             </a>
             <a
                 target="_blank"
@@ -62,6 +69,10 @@ import { router } from '../router.js';
                 class="underline"
             >
                 github
+                <fa
+                    icon="fa-external-link"
+                    class="ml-1 text-xs"
+                />
             </a>
         </div>
     </div>

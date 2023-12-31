@@ -3,13 +3,20 @@ import { ref, watch } from 'vue';
 import { Item } from './types';
 
 const props = defineProps<{
+    /**
+     * (prop) Item to display
+     */
     item: Item;
+
+    /**
+     * (prop) Whether the item is active, either hovered or active through keyboard navigation
+     */
     active: boolean;
 }>();
 
-const container = ref();
+const container = ref<HTMLDivElement>();
 watch(() => props.active, () => {
-    if (props.active) {
+    if (props.active && container.value) {
         container.value.scrollIntoView({
             block: 'nearest',
         });
@@ -17,6 +24,11 @@ watch(() => props.active, () => {
 });
 
 defineEmits<{
+    /**
+     * (event) Emitted when the item is selected
+     * 
+     * @param item The item that was selected
+     */
     (e: 'select', item: Item): void;
 }>();
 </script>

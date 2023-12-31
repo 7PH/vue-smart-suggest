@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.6% </span>
+                <span class="strong">96.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>199/206</span>
+                <span class='fraction'>198/206</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">89.65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>26/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.6% </span>
+                <span class="strong">96.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>199/206</span>
+                <span class='fraction'>198/206</span>
             </div>
         
             
@@ -336,11 +336,6 @@
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -371,23 +366,26 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -396,6 +394,9 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
@@ -474,7 +475,6 @@
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ref } from 'vue';
 import {
     AcceptedInputType,
@@ -515,11 +515,6 @@ export function useSmartSuggest(
      * Current active trigger
      */
     const activeTrigger = ref&lt;ActiveTrigger&gt;();
-&nbsp;
-    /**
-     * Current search
-     */
-    const search = ref('');
 &nbsp;
     /**
      * Current list of suggestions
@@ -577,30 +572,36 @@ export function useSmartSuggest(
         if (!input) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        activeIndex.value = 0;
+&nbsp;
         const newActiveTrigger = getActiveTrigger(
             input,
             triggers.value,
             MAX_SEARCH_LENGTH
         );
-        if (newActiveTrigger) {
-            activeTrigger.value = newActiveTrigger;
-            active.value = true;
-            search.value = newActiveTrigger.search;
-            items.value = searchItems(
-                newActiveTrigger.trigger.items,
-                search.value
-            );
-            activeIndex.value = 0;
-            dropdownPosition.value = getDropdownPosition(
-                input,
-                DROPDOWN_HEIGHT
-            );
-        } else {
+&nbsp;
+        // Get list of items matching the search
+        items.value = newActiveTrigger
+            ? searchItems(
+                  newActiveTrigger.trigger.items,
+                  newActiveTrigger.search
+              )
+            : [];
+&nbsp;
+        // No active trigger or no result, hide dropdown
+        if (
+            !newActiveTrigger ||
+            (!newActiveTrigger.trigger.showNoResult &amp;&amp; items.value.length === 0)
+        ) {
             active.value = false;
-            search.value = '';
-            items.value = [];
-            activeIndex.value = 0;
+            return;
         }
+&nbsp;
+        // Update dropdown data
+        dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT);
+        activeTrigger.value = newActiveTrigger;
+        active.value = true;
     }
 &nbsp;
     /**
@@ -674,7 +675,6 @@ export function useSmartSuggest(
         setTriggers,
         select,
         active,
-        search,
         items,
         dropdownPosition,
         activeIndex,
@@ -688,7 +688,7 @@ export function useSmartSuggest(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-30T17:09:26.111Z
+                at 2023-12-31T13:55:34.525Z
             </div>
         <script src="../prettify.js"></script>
         <script>
