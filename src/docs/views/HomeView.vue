@@ -31,6 +31,7 @@ import AppHeader from '../components/AppHeader.vue';
                     class="w-full p-2 border border-gray-300 rounded-md resize-none"
                     rows="4"
                     placeholder="Type @ or : to see the suggestions in action"
+                    spellcheck="false"
                 />
             </SmartSuggest>
             <div class="flex justify-end hidden">
@@ -78,7 +79,7 @@ $ yarn add vue-smart-suggest
         <p class="mt-4">
             Having trouble? Found a bug? Want to contribute?
             Any kind of contribution is welcome. If you have any questions, please open an issue or create a pull request on <a
-                href="https://github.com/7ph/powerglitch"
+                href="https://github.com/7ph/vue-smart-suggest"
                 target="_blank"
                 class="underline"
             >GitHub</a>.

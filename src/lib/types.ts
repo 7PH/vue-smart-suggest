@@ -26,13 +26,24 @@ export type Trigger = {
 
     /**
      * Whether there should be a whitespace before the trigger for the dropdown to be shown
+     *
+     * @default true
      */
     whitespaceBefore?: boolean;
 
     /**
      * Whether there should be a whitespace after a suggestion is selected
+     *
+     * @default true
      */
     insertSpaceAfter?: boolean;
+
+    /**
+     * Whether to show "No result" in the dropdown when there are no suggestions instead of just hiding it
+     *
+     * @default false
+     */
+    showNoResult?: boolean;
 };
 
 /**
@@ -53,6 +64,8 @@ export type Item = {
 
     /**
      * An optional label to show in the suggestion instead of the value
+     *
+     * @default {value}
      */
     label?: string;
 
@@ -70,7 +83,7 @@ export type Item = {
 /**
  * The current dropdown position.
  *
- * @note Mostly internal but to be used if you are using a custom dropdown
+ * @note Mostly internal unless you want to implement a custom dropdown
  */
 export type DropdownPosition = {
     /**

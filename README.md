@@ -1,4 +1,4 @@
-# Vue Smart Suggest
+<img src="./assets/intro.gif" alt="">
 
 Discover `vue-smart-suggest`, a compact (<3KB) vue library offering dynamic, context-sensitive suggestions for your text areas.
 

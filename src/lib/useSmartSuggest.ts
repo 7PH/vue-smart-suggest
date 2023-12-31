@@ -40,11 +40,6 @@ export function useSmartSuggest(
     const activeTrigger = ref<ActiveTrigger>();
 
     /**
-     * Current search
-     */
-    const search = ref('');
-
-    /**
      * Current list of suggestions
      */
     const items = ref<Item[]>([]);
@@ -100,29 +95,39 @@ export function useSmartSuggest(
         if (!input) {
             return;
         }
+
+        activeIndex.value = 0;
+
         const newActiveTrigger = getActiveTrigger(
             input,
             triggers.value,
             MAX_SEARCH_LENGTH
         );
-        if (newActiveTrigger) {
+
+        // Get list of items matching the search
+        items.value = newActiveTrigger
+            ? searchItems(
+                  newActiveTrigger.trigger.items,
+                  newActiveTrigger.search
+              )
+            : [];
+
+        // No active trigger or no result, hide dropdown
+        if (
+            !newActiveTrigger ||
+            (!newActiveTrigger.trigger.showNoResult && items.value.length === 0)
+        ) {
+            active.value = false;
+            return;
+        }
+
+        // Update dropdown position
+        dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT);
+
+        // If active trigger and non-empty search, show dropdown
+        if (items.value.length > 0) {
             activeTrigger.value = newActiveTrigger;
             active.value = true;
-            search.value = newActiveTrigger.search;
-            items.value = searchItems(
-                newActiveTrigger.trigger.items,
-                search.value
-            );
-            activeIndex.value = 0;
-            dropdownPosition.value = getDropdownPosition(
-                input,
-                DROPDOWN_HEIGHT
-            );
-        } else {
-            active.value = false;
-            search.value = '';
-            items.value = [];
-            activeIndex.value = 0;
         }
     }
 
@@ -197,7 +202,6 @@ export function useSmartSuggest(
         setTriggers,
         select,
         active,
-        search,
         items,
         dropdownPosition,
         activeIndex,

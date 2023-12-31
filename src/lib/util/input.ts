@@ -65,11 +65,12 @@ export function getActiveTrigger(
                 const searchRegExp =
                     trigger.searchRegExp?.source ?? /\S*/.source;
                 const regexp = new RegExp('^' + searchRegExp + '$');
+                const { whitespaceBefore = true } = trigger;
                 if (
                     // Matching regexp
                     search.match(regexp) &&
                     // Whitespace before trigger
-                    (!trigger.whitespaceBefore ||
+                    (!whitespaceBefore ||
                         index === 0 ||
                         /\s/.test(inputValue[index - 1]))
                 ) {
