@@ -12,7 +12,7 @@ import customDropdownDemo from '../demo/custom-dropdown.html?raw';
         <AppHeader />
         
         <p class="mt-8">
-            Customize the look and feel of the component by custom CSS classes.
+            Customize the look and feel of the component using custom CSS classes and slots.
             Follow this guide to learn how to make small style changes to the component or replace the entire UI.
         </p>
 
