@@ -253,6 +253,20 @@ describe('should trigger dropdown and search', () => {
         await ui.expectDropdownItems(wrapper, ['*guest0']);
     });
 
+    it('should limit rendered item count to specified number', async () => {
+        const wrapper = mountSmartSuggest({
+            triggers: [
+                {
+                    ...DEFAULT_TRIGGER[0],
+                    maxRenderedItems: 2,
+                } as Trigger,
+            ],
+        });
+
+        wrapper.find('textarea').setValue('hello world. @');
+        await ui.expectDropdownItems(wrapper, ['user1', 'user2']);
+    });
+
     it('should clear dropdown on blur', async () => {
         const wrapper = mountSmartSuggest();
 

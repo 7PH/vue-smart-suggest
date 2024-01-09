@@ -44,6 +44,13 @@ export type Trigger = {
      * @default false
      */
     showNoResult?: boolean;
+
+    /**
+     * Maximum number of results to show in the dropdown
+     *
+     * @default Infinity
+     */
+    maxRenderedItems?: number;
 };
 
 /**
