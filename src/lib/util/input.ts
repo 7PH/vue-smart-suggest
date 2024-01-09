@@ -16,8 +16,8 @@ export function setInputValue(input: AcceptedInputType, value: string) {
 /**
  * Search items by matching the search string with the item value.
  */
-export function searchItems(items: Item[], search: string): Item[] {
-    return items
+export function searchItems(trigger: Trigger, search: string): Item[] {
+    return trigger.items
         .filter((item) =>
             (item.searchMatch ?? item.value)
                 .toLowerCase()
@@ -40,7 +40,8 @@ export function searchItems(items: Item[], search: string): Item[] {
             // Return shorter item
             return a.score[1] - b.score[1];
         })
-        .map(({ item }) => item);
+        .map(({ item }) => item)
+        .slice(0, trigger.maxRenderedItems ?? Infinity);
 }
 
 /**

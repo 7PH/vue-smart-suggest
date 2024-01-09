@@ -106,10 +106,7 @@ export function useSmartSuggest(
 
         // Get list of items matching the search
         items.value = newActiveTrigger
-            ? searchItems(
-                  newActiveTrigger.trigger.items,
-                  newActiveTrigger.search
-              )
+            ? searchItems(newActiveTrigger.trigger, newActiveTrigger.search)
             : [];
 
         // No active trigger or no result, hide dropdown
