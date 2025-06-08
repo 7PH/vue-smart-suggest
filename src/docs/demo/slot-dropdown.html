@@ -1,7 +1,7 @@
-<slot #dropdown="{ position, items, activeIndex, trigger, select }">
+<template #dropdown="{ position, items, activeIndex, trigger, select }">
     {{ position as DropdownPosition }}
     {{ items as Item[] /* Suggestions */ }}
     {{ activeIndex as number /* Active suggestion index */ }}
     {{ trigger as ActiveTrigger }}
     {{ select as (item: Item) => void }}
-</slot>
+</template>

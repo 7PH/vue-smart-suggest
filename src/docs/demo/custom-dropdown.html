@@ -1,7 +1,7 @@
 <SmartSuggest :triggers="triggers">
     <textarea />
 
-    <slot #dropdown="{ position, items, activeIndex, trigger, select }">
+    <template #dropdown="{ position, items, activeIndex, trigger, select }">
         <div
             style="position: absolute"
             :style="{
@@ -25,5 +25,5 @@
                 </div>
             </div>
         </div>
-    </slot>
+    </template>
 </SmartSuggest>
