@@ -17,7 +17,8 @@ import { DROPDOWN_HEIGHT, MAX_SEARCH_LENGTH, SELECT_KEYS } from './constants';
 
 export function useSmartSuggest(
     startTriggers?: Trigger[],
-    startInput?: AcceptedInputType
+    startInput?: AcceptedInputType,
+    keepOnBlur?: boolean
 ) {
     /**
      * The textarea that is currently active
@@ -83,7 +84,11 @@ export function useSmartSuggest(
         }
     }
 
-    const onBlur = () => (active.value = false);
+    const onBlur = () => {
+        if (!keepOnBlur) {
+            active.value = false
+        }
+    };
     const onScroll = () =>
         input &&
         (dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT));

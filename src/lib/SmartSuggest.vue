@@ -22,9 +22,20 @@ const props = defineProps<{
      * (prop) Triggers to use for this SmartSuggest instance
      */
     triggers: Trigger[];
+
+    keepOnBlur?: boolean;
 }>();
 
-const { setInputElement, setTriggers, select, active, items, dropdownPosition, activeIndex, activeTrigger } = useSmartSuggest(props.triggers);
+const {
+    setInputElement,
+    setTriggers,
+    select,
+    active,
+    items,
+    dropdownPosition,
+    activeIndex,
+    activeTrigger
+} = useSmartSuggest(props.triggers, undefined, props.keepOnBlur);
 
 watch(() => props.triggers, () => {
     setTriggers(props.triggers);
