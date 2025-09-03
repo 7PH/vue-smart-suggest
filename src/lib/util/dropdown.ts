@@ -17,8 +17,8 @@ export function getDropdownPosition(
     const baseLeft = left + input.offsetLeft + DROPDOWN_MARGIN;
     
     // Check for horizontal overflow and adjust if necessary
-    const adjustedLeft = baseLeft + DROPDOWN_WIDTH > window.innerWidth
-        ? window.innerWidth - DROPDOWN_WIDTH - DROPDOWN_MARGIN
+    const adjustedLeft = baseLeft + inputRect.left + DROPDOWN_WIDTH > window.innerWidth
+        ? inputRect.width - DROPDOWN_WIDTH - DROPDOWN_MARGIN
         : baseLeft;
 
     // Is there place for the dropdown below the caret?
