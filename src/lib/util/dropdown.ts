@@ -12,8 +12,16 @@ export function getDropdownPosition(
         getInputSelectionStart(input)
     );
 
-    // Is there place for the dropdown below the caret?
+    // Calculate base positioning
     const inputRect = input.getBoundingClientRect();
+    const baseLeft = left + input.offsetLeft + DROPDOWN_MARGIN;
+    
+    // Check for horizontal overflow and adjust if necessary
+    const adjustedLeft = baseLeft + DROPDOWN_WIDTH > window.innerWidth
+        ? window.innerWidth - DROPDOWN_WIDTH - DROPDOWN_MARGIN
+        : baseLeft;
+
+    // Is there place for the dropdown below the caret?
     if (
         inputRect.top + top + dropdownHeight + 2 * DROPDOWN_MARGIN <=
         window.innerHeight
@@ -21,7 +29,7 @@ export function getDropdownPosition(
         return {
             toTop: false,
             top: top + input.offsetTop + DROPDOWN_MARGIN,
-            left: left + input.offsetLeft + DROPDOWN_MARGIN,
+            left: adjustedLeft,
             width: DROPDOWN_WIDTH,
             height: dropdownHeight,
         };
@@ -32,7 +40,7 @@ export function getDropdownPosition(
         return {
             toTop: true,
             top: top + input.offsetTop - dropdownHeight - DROPDOWN_MARGIN,
-            left: left + input.offsetLeft + DROPDOWN_MARGIN,
+            left: adjustedLeft,
             width: DROPDOWN_WIDTH,
             height: dropdownHeight,
         };
@@ -41,7 +49,7 @@ export function getDropdownPosition(
     return {
         toTop: true,
         top: input.offsetTop - inputRect.top + DROPDOWN_MARGIN,
-        left: left + input.offsetLeft + DROPDOWN_MARGIN,
+        left: adjustedLeft,
         width: DROPDOWN_WIDTH,
         height: window.innerHeight - 2 * DROPDOWN_MARGIN,
     };
