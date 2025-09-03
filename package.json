@@ -1,71 +1,71 @@
 {
-  "name": "vue-smart-suggest",
-  "version": "1.1.0",
-  "description": "",
-  "keywords": [],
-  "author": "7PH <b.raymond@protonmail.com>",
-  "license": "ISC",
-  "types": "./lib/types/lib/index.d.ts",
-  "main": "./lib/vue-smart-suggest.umd.js",
-  "module": "./lib/vue-smart-suggest.es.js",
-  "exports": {
-    ".": {
-      "import": "./lib/vue-smart-suggest.es.js",
-      "require": "./lib/vue-smart-suggest.umd.js"
+    "name": "vue-smart-suggest",
+    "version": "1.1.1",
+    "description": "",
+    "keywords": [],
+    "author": "7PH <b.raymond@protonmail.com>",
+    "license": "ISC",
+    "types": "./lib/types/lib/index.d.ts",
+    "main": "./lib/vue-smart-suggest.umd.js",
+    "module": "./lib/vue-smart-suggest.es.js",
+    "exports": {
+        ".": {
+            "import": "./lib/vue-smart-suggest.es.js",
+            "require": "./lib/vue-smart-suggest.umd.js"
+        },
+        "./lib/style.css": "./lib/style.css"
     },
-    "./lib/style.css": "./lib/style.css"
-  },
-  "scripts": {
-    "dev": "vite --config vite-docs.config.ts",
-    "build": "vite build && npm run build:docs",
-    "build:docs": "rm -r docs && vite --config vite-docs.config.ts build && npm run coverage && npx typedoc",
-    "test": "vitest --run",
-    "coverage": "vitest --run --coverage && rm -r docs/coverage/tmp",
-    "size": "size-limit"
-  },
-  "files": [
-    "/lib"
-  ],
-  "devDependencies": {
-    "@faker-js/faker": "^8.3.1",
-    "@fortawesome/free-brands-svg-icons": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/vue-fontawesome": "^3.0.5",
-    "@highlightjs/vue-plugin": "^2.1.0",
-    "@size-limit/preset-small-lib": "^11.0.1",
-    "@types/textarea-caret": "^3.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.37.0",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "@vitest/coverage-c8": "^0.23.2",
-    "@vitest/ui": "^0.23.2",
-    "@vue/test-utils": "^2.0.0-rc.33",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.23.1",
-    "eslint-plugin-vue": "^9.5.1",
-    "highlight.js": "^11.9.0",
-    "jsdom": "^23.0.1",
-    "postcss": "^8.4.32",
-    "size-limit": "^11.0.1",
-    "tailwindcss": "^3.4.0",
-    "typedoc": "^0.25.4",
-    "typedoc-plugin-vue": "^1.1.0",
-    "typescript": "^4.8.3",
-    "vite": "^3.1.1",
-    "vite-plugin-dts": "^3.7.0",
-    "vitest": "^0.23.2",
-    "vue": "^3.2.31",
-    "vue-router": "^4.2.5"
-  },
-  "peerDependencies": {
-    "vue": ">= 3.0.0"
-  },
-  "dependencies": {
-    "textarea-caret": "^3.1.0"
-  },
-  "size-limit": [
-    {
-      "limit": "3 kB",
-      "path": "lib/vue-smart-suggest.es.js"
-    }
-  ]
+    "scripts": {
+        "dev": "vite --config vite-docs.config.ts",
+        "build": "vite build && npm run build:docs",
+        "build:docs": "rm -r docs && vite --config vite-docs.config.ts build && npm run coverage && npx typedoc",
+        "test": "vitest --run",
+        "coverage": "vitest --run --coverage && rm -r docs/coverage/tmp",
+        "size": "size-limit"
+    },
+    "files": [
+        "/lib"
+    ],
+    "devDependencies": {
+        "@faker-js/faker": "^8.3.1",
+        "@fortawesome/free-brands-svg-icons": "^6.5.1",
+        "@fortawesome/free-solid-svg-icons": "^6.5.1",
+        "@fortawesome/vue-fontawesome": "^3.0.5",
+        "@highlightjs/vue-plugin": "^2.1.0",
+        "@size-limit/preset-small-lib": "^11.0.1",
+        "@types/textarea-caret": "^3.0.3",
+        "@typescript-eslint/eslint-plugin": "^5.37.0",
+        "@vitejs/plugin-vue": "^3.1.0",
+        "@vitest/coverage-c8": "^0.23.2",
+        "@vitest/ui": "^0.23.2",
+        "@vue/test-utils": "^2.0.0-rc.33",
+        "autoprefixer": "^10.4.16",
+        "eslint": "^8.23.1",
+        "eslint-plugin-vue": "^9.5.1",
+        "highlight.js": "^11.9.0",
+        "jsdom": "^23.0.1",
+        "postcss": "^8.4.32",
+        "size-limit": "^11.0.1",
+        "tailwindcss": "^3.4.0",
+        "typedoc": "^0.25.4",
+        "typedoc-plugin-vue": "^1.1.0",
+        "typescript": "^4.8.3",
+        "vite": "^3.1.1",
+        "vite-plugin-dts": "^3.7.0",
+        "vitest": "^0.23.2",
+        "vue": "^3.2.31",
+        "vue-router": "^4.2.5"
+    },
+    "peerDependencies": {
+        "vue": ">= 3.0.0"
+    },
+    "dependencies": {
+        "textarea-caret": "^3.1.0"
+    },
+    "size-limit": [
+        {
+            "limit": "3 kB",
+            "path": "lib/vue-smart-suggest.es.js"
+        }
+    ]
 }
