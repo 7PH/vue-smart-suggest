@@ -5,11 +5,12 @@
     "keywords": [],
     "author": "7PH <b.raymond@protonmail.com>",
     "license": "ISC",
-    "types": "./lib/types/lib/index.d.ts",
+    "types": "./lib/index.d.ts",
     "main": "./lib/vue-smart-suggest.umd.js",
     "module": "./lib/vue-smart-suggest.es.js",
     "exports": {
         ".": {
+            "types": "./lib/index.d.ts",
             "import": "./lib/vue-smart-suggest.es.js",
             "require": "./lib/vue-smart-suggest.umd.js"
         },
