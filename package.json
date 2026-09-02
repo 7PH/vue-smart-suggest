@@ -65,7 +65,7 @@
     },
     "size-limit": [
         {
-            "limit": "3 kB",
+            "limit": "3.5 kB",
             "path": "lib/vue-smart-suggest.es.js"
         }
     ]

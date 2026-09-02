@@ -8,8 +8,13 @@ export function getInputValue(input: AcceptedInputType) {
     return input.value;
 }
 
-export function setInputValue(input: AcceptedInputType, value: string) {
+export function setInputValue(
+    input: AcceptedInputType,
+    value: string,
+    selectionStart: number
+) {
     input.value = value;
+    input.setSelectionRange(selectionStart, selectionStart);
     input.dispatchEvent(new Event('input'));
 }
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { userTrigger, emojiTrigger } from '../triggers';
 import SmartSuggest from '../../lib/SmartSuggest.vue';
 import AppHeader from '../components/AppHeader.vue';
@@ -13,6 +14,12 @@ const narrowClass = 'max-w-[700px] w-full mx-auto px-4';
 
 // Tapered shaft + head, drawn as a single filled shape pointing right
 const arrowPath = 'M2 11 L146 7.4 L146 1 L182 12 L146 23 L146 16.6 L2 13 Z';
+
+// Long enough to overflow a 3-row box, so the textarea has its own scrollbar.
+// It has to be a v-model: a plain `:value` is re-applied (wiping what you typed) every time SmartSuggest re-renders its slot
+const scrolledText = ref(
+    Array.from({ length: 10 }, (_, i) => `line ${i + 1}`).join('\n')
+);
 </script>
 
 <template>
@@ -48,6 +55,32 @@ const arrowPath = 'M2 11 L146 7.4 L146 1 L182 12 L146 23 L146 16.6 L2 13 Z';
                     class="w-full"
                     rows="4"
                     :placeholder="placeholder"
+                    spellcheck="false"
+                />
+            </SmartSuggest>
+
+            <!-- Scrolled inside itself -->
+            <h2
+                id="self-scroll"
+                class="font-bold mt-8"
+            >
+                Textarea scrolled down inside itself
+            </h2>
+            <p class="mt-2">
+                The content is taller than the box, so the textarea has its own
+                scrollbar. Scroll to the last line and type <b>@</b>: the
+                dropdown has to follow the visible caret, not the one in the
+                unscrolled text.
+            </p>
+            <SmartSuggest
+                class="mt-4"
+                :triggers="triggers"
+            >
+                <textarea
+                    v-model="scrolledText"
+                    :class="inputClass"
+                    class="w-full"
+                    rows="3"
                     spellcheck="false"
                 />
             </SmartSuggest>

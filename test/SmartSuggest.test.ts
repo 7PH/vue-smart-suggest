@@ -387,3 +387,59 @@ describe('should select item', () => {
         );
     });
 });
+
+describe('should follow the caret', () => {
+    /**
+     * jsdom has no layout, so fake a box smaller than its content, ie a textarea with its own scrollbar.
+     */
+    function makeScrollable(textArea: HTMLTextAreaElement) {
+        Object.defineProperty(textArea, 'clientHeight', { value: 100 });
+        Object.defineProperty(textArea, 'scrollHeight', { value: 300 });
+    }
+
+    it('should close the dropdown when the caret is scrolled out of view', async () => {
+        const wrapper = mountSmartSuggest();
+        const textArea = wrapper.find('textarea');
+
+        textArea.setValue('hello world. @us');
+        await ui.expectDropdownVisibility(wrapper, true);
+
+        // Scroll the caret past the top edge of the box
+        makeScrollable(textArea.element);
+        textArea.element.scrollTop = 200;
+        await textArea.trigger('scroll');
+
+        await ui.expectDropdownVisibility(wrapper, false);
+    });
+
+    it('should reopen the dropdown when the caret is scrolled back into view', async () => {
+        const wrapper = mountSmartSuggest();
+        const textArea = wrapper.find('textarea');
+
+        textArea.setValue('hello world. @us');
+        makeScrollable(textArea.element);
+        textArea.element.scrollTop = 200;
+        await textArea.trigger('scroll');
+        await ui.expectDropdownVisibility(wrapper, false);
+
+        textArea.element.scrollTop = 0;
+        await textArea.trigger('scroll');
+
+        await ui.expectDropdownVisibility(wrapper, true);
+    });
+
+    it('should stay closed after escape whatever the scroll', async () => {
+        const wrapper = mountSmartSuggest();
+        const textArea = wrapper.find('textarea');
+
+        textArea.setValue('hello world. @us');
+        await ui.expectDropdownVisibility(wrapper, true);
+
+        await textArea.trigger('keydown', { key: 'Escape' });
+        await ui.expectDropdownVisibility(wrapper, false);
+
+        await textArea.trigger('scroll');
+
+        await ui.expectDropdownVisibility(wrapper, false);
+    });
+});
