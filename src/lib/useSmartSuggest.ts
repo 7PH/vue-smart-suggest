@@ -13,6 +13,7 @@ import {
     setInputValue,
 } from './util/input';
 import { getDropdownPosition } from './util/dropdown';
+import { getCaretMetrics } from './util/layout';
 import { DROPDOWN_HEIGHT, MAX_SEARCH_LENGTH, SELECT_KEYS } from './constants';
 
 export function useSmartSuggest(
@@ -83,10 +84,38 @@ export function useSmartSuggest(
         }
     }
 
-    const onBlur = () => (active.value = false);
-    const onScroll = () =>
-        input &&
-        (dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT));
+    const onBlur = () => close();
+    const onScroll = () => {
+        // A trigger that is still live means the dropdown can come back once the caret scrolls into view again
+        if (activeTrigger.value) {
+            active.value = setDropdownPosition();
+        }
+    };
+
+    /**
+     * Hide the dropdown and forget the trigger, so that it stays hidden until the next input.
+     */
+    function close() {
+        active.value = false;
+        activeTrigger.value = undefined;
+    }
+
+    /**
+     * Places the dropdown at the caret.
+     *
+     * @returns false when the caret is not visible, ie there is nothing to anchor the dropdown to
+     */
+    function setDropdownPosition(): boolean {
+        const position =
+            input &&
+            getDropdownPosition(getCaretMetrics(input), DROPDOWN_HEIGHT);
+        if (!position) {
+            return false;
+        }
+
+        dropdownPosition.value = position;
+        return true;
+    }
 
     /**
      * When the text area is updated
@@ -114,14 +143,13 @@ export function useSmartSuggest(
             !newActiveTrigger ||
             (!newActiveTrigger.trigger.showNoResult && items.value.length === 0)
         ) {
-            active.value = false;
+            close();
             return;
         }
 
         // Update dropdown data
-        dropdownPosition.value = getDropdownPosition(input, DROPDOWN_HEIGHT);
         activeTrigger.value = newActiveTrigger;
-        active.value = true;
+        active.value = setDropdownPosition();
     }
 
     /**
@@ -149,7 +177,7 @@ export function useSmartSuggest(
         if (event.key === 'Escape') {
             event.preventDefault();
             event.stopPropagation();
-            active.value = false;
+            close();
             return;
         }
         // Handle selection key
@@ -171,15 +199,21 @@ export function useSmartSuggest(
      */
     function select(item: Item) {
         if (input && activeTrigger.value) {
-            const newValue =
-                input.value.substring(0, activeTrigger.value.index) +
+            const inserted =
                 item.value +
                 (activeTrigger.value.trigger.insertSpaceAfter !== false
                     ? ' '
-                    : '') +
+                    : '');
+            const newValue =
+                input.value.substring(0, activeTrigger.value.index) +
+                inserted +
                 input.value.substring(getInputSelectionStart(input));
-            setInputValue(input, newValue);
-            active.value = false;
+            setInputValue(
+                input,
+                newValue,
+                activeTrigger.value.index + inserted.length
+            );
+            close();
         }
     }
 
