@@ -23,7 +23,7 @@ import { router } from '../router.js';
         <p class="text-center mt-4 text-lg">
             Context-sensitive suggestions for your text areas (and more)
         </p>
-        <div class="mt-2 flex justify-center gap-4">
+        <div class="mt-2 flex flex-wrap justify-center gap-x-4 px-4">
             <RouterLink
                 to="/"
                 class=""
@@ -32,6 +32,14 @@ import { router } from '../router.js';
                 }"
             >
                 home
+            </RouterLink>
+            <RouterLink
+                to="/examples"
+                :class="{
+                    'underline': router.currentRoute.value.name !== 'examples',
+                }"
+            >
+                examples
             </RouterLink>
             <RouterLink
                 to="/customize"

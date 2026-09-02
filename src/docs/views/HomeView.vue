@@ -34,15 +34,13 @@ import AppHeader from '../components/AppHeader.vue';
                     spellcheck="false"
                 />
             </SmartSuggest>
-            <div class="flex justify-end hidden">
-                <span class="w-fit">
-                    For more demos, see the <router-link
-                        to="/usage"
-                        class="underline"
-                    >
-                        usage page
-                    </router-link>
-                </span>
+            <div class="flex justify-end mt-2">
+                <RouterLink
+                    to="/examples"
+                    class="underline"
+                >
+                    more examples
+                </RouterLink>
             </div>
         </div>
 
