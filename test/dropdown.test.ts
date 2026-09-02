@@ -26,13 +26,28 @@ vi.mock('textarea-caret', async () => {
 });
 
 const originalWindowInnerHeight = window.innerHeight;
+const originalWindowInnerWidth = window.innerWidth;
 beforeAll(() => {
     window.innerHeight = 100;
+    window.innerWidth = 1000;
 });
 
 afterAll(() => {
     window.innerHeight = originalWindowInnerHeight;
+    window.innerWidth = originalWindowInnerWidth;
 });
+
+/**
+ * jsdom has no layout, so the position of the input in the viewport has to be faked.
+ */
+function positionTextArea(
+    textArea: HTMLTextAreaElement,
+    { viewportLeft, offsetLeft }: { viewportLeft: number; offsetLeft: number }
+) {
+    textArea.getBoundingClientRect = () =>
+        ({ top: 0, left: viewportLeft }) as DOMRect;
+    Object.defineProperty(textArea, 'offsetLeft', { value: offsetLeft });
+}
 
 describe('dropdown', () => {
     describe('getDropdownPosition', () => {
@@ -60,6 +75,36 @@ describe('dropdown', () => {
                 width: DROPDOWN_WIDTH,
                 height: 40,
             });
+        });
+
+        it('should keep the dropdown inside the viewport when the input is near the right edge', async () => {
+            const textArea = factory.textArea();
+            positionTextArea(textArea, { viewportLeft: 900, offsetLeft: 0 });
+
+            const { left } = getDropdownPosition(textArea, 10);
+
+            // Container coordinates, ie 1000 - 200 - 10 - 900
+            expect(left).toEqual(-110);
+        });
+
+        it('should not shift the dropdown when the input fits despite a large offsetLeft', async () => {
+            const textArea = factory.textArea();
+            positionTextArea(textArea, { viewportLeft: 300, offsetLeft: 300 });
+
+            const { left } = getDropdownPosition(textArea, 10);
+
+            expect(left).toEqual(300 + DROPDOWN_MARGIN);
+        });
+
+        it('should not push the dropdown off the left edge of the viewport', async () => {
+            const textArea = factory.textArea();
+            positionTextArea(textArea, { viewportLeft: 0, offsetLeft: 0 });
+            window.innerWidth = 100;
+
+            const { left } = getDropdownPosition(textArea, 10);
+            window.innerWidth = 1000;
+
+            expect(left).toEqual(DROPDOWN_MARGIN);
         });
 
         it('should reduce height when there is not enough space at all', async () => {

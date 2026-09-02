@@ -15,11 +15,16 @@ export function getDropdownPosition(
     // Calculate base positioning
     const inputRect = input.getBoundingClientRect();
     const baseLeft = left + input.offsetLeft + DROPDOWN_MARGIN;
-    
-    // Check for horizontal overflow and adjust if necessary
-    const adjustedLeft = baseLeft + DROPDOWN_WIDTH > window.innerWidth
-        ? window.innerWidth - DROPDOWN_WIDTH - DROPDOWN_MARGIN
-        : baseLeft;
+
+    // `left` is relative to the container, so the viewport bounds have to be expressed in container coordinates too
+    const containerLeft = inputRect.left - input.offsetLeft;
+    const adjustedLeft = Math.max(
+        DROPDOWN_MARGIN - containerLeft,
+        Math.min(
+            baseLeft,
+            window.innerWidth - DROPDOWN_WIDTH - DROPDOWN_MARGIN - containerLeft
+        )
+    );
 
     // Is there place for the dropdown below the caret?
     if (
