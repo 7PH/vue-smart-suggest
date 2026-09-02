@@ -1,6 +1,11 @@
 import { AcceptedInputType, ActiveTrigger, Item, Trigger } from '../types';
 
-export function getInputSelectionStart(input: AcceptedInputType): number {
+/**
+ * @returns null for input types that expose no caret, such as email or number
+ */
+export function getInputSelectionStart(
+    input: AcceptedInputType
+): number | null {
     return input.selectionStart;
 }
 
@@ -60,6 +65,11 @@ export function getActiveTrigger(
     // Start from cursor position and search for trigger keys. When found, if search regex until cursor position matches, activate suggestions
     const inputValue = getInputValue(input);
     const cursorPosition = getInputSelectionStart(input);
+    // No caret means no trigger, which also keeps `setInputValue` (and its `setSelectionRange`, which those types reject) out of reach
+    if (cursorPosition === null) {
+        return null;
+    }
+
     let index = cursorPosition;
     while (index >= 0 && index > cursorPosition - maxSearchLength) {
         // For each potential trigger key

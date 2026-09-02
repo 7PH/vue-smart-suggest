@@ -1,6 +1,6 @@
 <img src="./assets/intro.gif" alt="">
 
-Vue Smart Suggest is a lightweight vue library offering dynamic, context-sensitive suggestions for your text areas. It can be fully customized with custom components and weights less than `3kb` minified and gzipped.
+Vue Smart Suggest is a lightweight vue library offering dynamic, context-sensitive suggestions for your textareas and inputs. It can be fully customized with custom components and weights less than `3.5kb` minified and brotlied.
 
 Check out the [documentation website](https://7ph.github.io/vue-smart-suggest/#/) to try it out 😊
 
@@ -31,21 +31,28 @@ Check out the [documentation website](https://7ph.github.io/vue-smart-suggest/#/
 
     \*minimal example, check Trigger type definition to see all options
 
-3. Enhance a text area with `<SmartSuggest />`
+3. Enhance a textarea or an input with `<SmartSuggest />`
 
     ```html
     <SmartSuggest :triggers="[userMentionTrigger]">
         <textarea />
     </SmartSuggest>
+
+    <SmartSuggest :triggers="[userMentionTrigger]">
+        <input type="text" />
+    </SmartSuggest>
     ```
 
-4. That's it, your textarea will show up suggestions as you type `@`!
+4. That's it, suggestions will show up as you type `@`!
+
+    Input types that expose no caret, such as `email` or `number`, are accepted but never suggest anything.
+
 5. Check-out the [customization guide](https://7ph.github.io/vue-smart-suggest/#/customize) or the [API](https://7ph.github.io/vue-smart-suggest/api-docs/) to get the most of this library
 
 ## Dependencies
 
 -   This library requires `vue 3.x`.
--   This library has a single dependency, `textarea-caret` which helps finding the position of the cursor inside a text area.
+-   This library has a single dependency, `textarea-caret` which helps finding the position of the cursor inside a textarea or an input.
 
 ## Useful links
 
