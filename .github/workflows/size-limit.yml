@@ -1,0 +1,22 @@
+name: 'size'
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    # The repo default is read-only, which leaves the action unable to post its comment
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      CI_JOB_NUMBER: 1
+    steps:
+      - uses: actions/checkout@v4
+      # Pinned: the floating v1 tag still runs on the node12 runtime, which GitHub dropped
+      - uses: andresz1/size-limit-action@v1.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
