@@ -207,7 +207,7 @@ export function useSmartSuggest(
             const newValue =
                 input.value.substring(0, activeTrigger.value.index) +
                 inserted +
-                input.value.substring(getInputSelectionStart(input));
+                input.value.substring(getInputSelectionStart(input) ?? 0);
             setInputValue(
                 input,
                 newValue,

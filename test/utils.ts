@@ -43,4 +43,24 @@ export const factory = {
         });
         return textArea;
     },
+    input: (type = 'text') => {
+        const input = document.createElement('input');
+        input.type = type;
+        input.addEventListener = vitest.fn();
+        input.removeEventListener = vitest.fn();
+        // jsdom has no layout: a single line, so the box is never taller than its content
+        Object.defineProperty(input, 'clientWidth', {
+            value: 300,
+            configurable: true,
+        });
+        Object.defineProperty(input, 'clientHeight', {
+            value: 30,
+            configurable: true,
+        });
+        Object.defineProperty(input, 'scrollHeight', {
+            value: 30,
+            configurable: true,
+        });
+        return input;
+    },
 };

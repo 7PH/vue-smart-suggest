@@ -443,3 +443,43 @@ describe('should follow the caret', () => {
         await ui.expectDropdownVisibility(wrapper, false);
     });
 });
+
+describe('should support inputs', () => {
+    const mountWithInput = (type = 'text') =>
+        mountSmartSuggest(undefined, { default: `<input type="${type}" />` });
+
+    it('should be correctly structured', async () => {
+        const wrapper = mountWithInput();
+
+        expect(wrapper.find('div.smart-suggest > input').exists()).toBe(true);
+    });
+
+    it('should open the dropdown on an input', async () => {
+        const wrapper = mountWithInput();
+
+        wrapper.find('input').setValue('hello @user');
+        await ui.expectDropdownVisibility(wrapper, true);
+        await ui.expectDropdownItems(wrapper, ['user1', 'user2'], true);
+    });
+
+    it('should select an item and leave the caret after the insertion', async () => {
+        const wrapper = mountWithInput();
+        const input = wrapper.find('input');
+
+        input.setValue('hello @user');
+        await ui.clickDropdownItem(wrapper, 0);
+        await nextTick();
+
+        expect(input.element.value).toBe('hello user1 ');
+        expect(input.element.selectionStart).toBe('hello user1 '.length);
+        await ui.expectDropdownVisibility(wrapper, false);
+    });
+
+    it('should stay inert on an input type with no caret', async () => {
+        const wrapper = mountWithInput('email');
+
+        wrapper.find('input').setValue('hello @user');
+
+        await ui.expectDropdownVisibility(wrapper, false);
+    });
+});

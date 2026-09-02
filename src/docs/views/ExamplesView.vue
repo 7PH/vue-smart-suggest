@@ -20,6 +20,9 @@ const arrowPath = 'M2 11 L146 7.4 L146 1 L182 12 L146 23 L146 16.6 L2 13 Z';
 const scrolledText = ref(
     Array.from({ length: 10 }, (_, i) => `line ${i + 1}`).join('\n')
 );
+
+// Wider than the input it sits in, so the input scrolls sideways once the caret reaches the end
+const scrolledInputText = ref('a single line of text that does not fit');
 </script>
 
 <template>
@@ -83,6 +86,79 @@ const scrolledText = ref(
                     rows="3"
                     spellcheck="false"
                 />
+            </SmartSuggest>
+
+            <!-- Single-line input -->
+            <h2
+                id="input"
+                class="font-bold mt-8"
+            >
+                Single-line input
+            </h2>
+            <p class="mt-2">
+                Everything above also works on an <b>&lt;input&gt;</b>, not just
+                a textarea.
+            </p>
+            <SmartSuggest
+                class="mt-4"
+                :triggers="triggers"
+            >
+                <input
+                    :class="inputClass"
+                    class="w-full"
+                    type="text"
+                    :placeholder="placeholder"
+                    spellcheck="false"
+                >
+            </SmartSuggest>
+
+            <!-- Input scrolled sideways -->
+            <h2
+                id="input-scroll"
+                class="font-bold mt-8"
+            >
+                Input scrolled sideways
+            </h2>
+            <p class="mt-2">
+                The value is wider than the box, so the input scrolls sideways.
+                Put the caret at the end and type <b>@</b>: the dropdown follows
+                the caret you can see, not the one in the unscrolled text.
+            </p>
+            <SmartSuggest
+                class="mt-4"
+                :triggers="triggers"
+            >
+                <input
+                    v-model="scrolledInputText"
+                    :class="inputClass"
+                    class="w-[220px]"
+                    type="text"
+                    spellcheck="false"
+                >
+            </SmartSuggest>
+
+            <!-- Input with no caret -->
+            <h2
+                id="input-no-caret"
+                class="font-bold mt-8"
+            >
+                Input with no caret
+            </h2>
+            <p class="mt-2">
+                <b>email</b>, <b>number</b> and friends report no selection at
+                all, so there is nowhere to anchor a dropdown. Typing <b>@</b>
+                here does nothing, which is the intended behaviour.
+            </p>
+            <SmartSuggest
+                class="mt-4"
+                :triggers="triggers"
+            >
+                <input
+                    :class="inputClass"
+                    class="w-full"
+                    type="email"
+                    placeholder="Nothing will show up here"
+                >
             </SmartSuggest>
 
             <!-- Narrow textarea -->

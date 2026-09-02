@@ -1,9 +1,9 @@
 /**
  * Accepted input types
  *
- * @note Currently only supporting text area
+ * @note Input types with no caret (email, number, checkbox...) are accepted but never suggest anything
  */
-export type AcceptedInputType = HTMLTextAreaElement;
+export type AcceptedInputType = HTMLTextAreaElement | HTMLInputElement;
 
 /**
  * Definition for a trigger ie what will trigger the suggestions, the corresponding items and how to add then
